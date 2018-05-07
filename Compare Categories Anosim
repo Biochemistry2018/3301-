@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#SBATCH -t 1:00:00
+
+#SBATCH -n 24
+
+#SBATCH -p short
+
+#Load modules
+
+module load eb
+
+module load Miniconda2
+
+# loading virtualenv
+
+source activate qiime1
+
+module load R/3.3.1-intel-2016b
+
+# setting temporary directory
+
+export TMPDIR=~/qiime_tmp
+
+time compare_categories.py —method anosim -i ~/2018_02_smb/Core_Diversity_Analyses_By_Sample/bdiv_even601/unweighted_unifrac_dm.txt -m ~/2018_02_smb/Mapping_File_COMPLETE.tsv -c SamplePh -o Anosim_pH_Filtered_Samples 
+
+
+#deactivate
+
+source deactivate
