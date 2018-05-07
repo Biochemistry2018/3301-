@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#SBATCH -t 1:00:00
+
+#SBATCH -n 24
+
+#SBATCH -p short
+
+#Load modules
+
+module load eb
+
+module load Miniconda2
+
+# loading virtualenv
+
+source activate qiime1
+
+# setting temporary directory
+
+export TMPDIR=~/qiime_tmp
+
+#group significance pH 
+
+time group_significance.py -i ~/2018_02_smb/OTUs_Filtered_By_Sample.biom -m ~/2018_02_smb/Mapping_File_COMPLETE.tsv -c SamplePh -o Group_Significance_pH.txt
+
+#deactivate
+
+source deactivate
