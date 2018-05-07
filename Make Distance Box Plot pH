@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#SBATCH -t 1:00:00
+
+#SBATCH -n 24
+
+#SBATCH -p short
+
+#Load modules
+
+module load eb
+
+module load Miniconda2
+
+# loading virtualenv
+
+source activate qiime1
+
+# setting temporary directory
+
+export TMPDIR=~/qiime_tmp
+
+#Make Distance Box Plots 
+
+time make_distance_boxplots.py -d ~/2018_02_smb/Core_Diversity_Analyses_Filtered_Samples/bdiv_even601/unweighted_unifrac_dm.txt -m ~/2018_02_smb/mapping_file_COMPLETE.tsv -f SamplePh -o Distance_Boxplots_pH
+
+#deactivate
+
+source deactivate
