@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#SBATCH -t 1:00:00
+
+#SBATCH -n 24
+
+#SBATCH -p short
+
+#Load modules
+
+module load eb
+
+module load Miniconda2
+
+# loading virtualenv
+
+source activate qiime1
+
+# setting temporary directory
+
+export TMPDIR=~/qiime_tmp
+
+#core diversity analysis 
+
+time core_diversity_analyses.py -i ~/2018_02_smb/ -m ~/2018_02_smb/Mapping_File_Sans_Shit.tsv -o Core_Diversity_Analyses_5_Main_Samples -e 33500 -t ~/2018_02_smb/OTUs/97_otus.tree -c SamplePh
+
+#deactivate
+
+source deactivate
