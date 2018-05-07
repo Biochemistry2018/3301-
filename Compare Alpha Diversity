@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#SBATCH -t 1:00:00
+
+#SBATCH -n 24
+
+#SBATCH -p short
+
+#Load modules
+
+module load eb
+
+module load Miniconda2
+
+# loading virtualenv
+
+source activate qiime1
+
+# setting temporary directory
+
+export TMPDIR=~/qiime_tmp
+
+#Compare alpha diversity for pH
+
+time compare_alpha_diversity.py -i ~/2018_02_smb/Core_Diversity_Analyses_Filtered_Samples/arare_max601/alpha_div_collated/chao1.txt 
+ -m ~/2018_02_smb/mapping_file_COMPLETE.tsv -c SamplePh -o Compare_Alpha_Diversity_By_pH_Chao1
+#deactivate
+
+source deactivate
