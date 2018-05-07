@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#SBATCH -t 1:00:00
+
+#SBATCH -n 24
+
+#SBATCH -p short
+
+#Load modules
+
+module load eb
+
+module load Miniconda2
+
+# loading virtualenv
+
+source activate qiime1
+
+# setting temporary directory
+
+export TMPDIR=~/qiime_tmp
+
+#splitting libraries
+
+echo "splitting libraries"
+time split_libraries_fastq.py --barcode_type 12 -i ~/2018_02_smb/SeqPrep_joined/seqprep_assembled.fastq.gz -b ~/2018_02_smb/SeqPrep_joined/seqprep_assembled.fastq_barcodes.fastq -o SplitLibraries -m mapping_file_complete.tsv -q 19 --rev_comp_barcode --rev_comp_mapping_barcodes
+
+#Deactivating Environment
+
+source deactivate
+
